@@ -1,0 +1,2 @@
+miniflux_download_url: "https://github.com/miniflux/miniflux/releases/download/{{miniflux_version}}/miniflux-linux-armv7"
+

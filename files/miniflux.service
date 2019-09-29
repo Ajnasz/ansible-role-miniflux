@@ -1,0 +1,14 @@
+[Unit]
+Description=Miniflux Feed Reader
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/miniflux.conf
+User=miniflux
+ExecStart=/usr/local/bin/miniflux
+Restart=always
+RuntimeDirectory=miniflux
+
+[Install]
+WantedBy=multi-user.target

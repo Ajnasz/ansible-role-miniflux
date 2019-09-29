@@ -1,0 +1,16 @@
+---
+
+- name: "reload systemd"
+  systemd:
+    daemon_reload: "yes"
+
+- name: "enable miniflux"
+  systemd:
+    name: "miniflux"
+    enabled: "yes"
+
+- name: "restart miniflux"
+  systemd:
+    name: "miniflux"
+    state: "restarted"
+

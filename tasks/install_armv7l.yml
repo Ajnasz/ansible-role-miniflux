@@ -1,0 +1,8 @@
+- name: "Download miniflux binary"
+  get_url:
+    url: "{{ miniflux_download_url_armv7 }}"
+    dest: "/usr/local/bin/miniflux"
+    mode: "0755"
+    owner: "root"
+    group: "root"
+

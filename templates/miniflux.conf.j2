@@ -1,0 +1,85 @@
+# See https://docs.miniflux.app/
+
+LISTEN_ADDR=0.0.0.0:8080
+DATABASE_URL="{{ miniflux_database_url }}"
+{%if run_migrations %}
+RUN_MIGRATIONS=1
+{% endif %}
+
+{%if create_admin %}
+CREATE_ADMIN=1
+ADMIN_USERNAME="{{ miniflux_admin_username }}"
+ADMIN_PASSWORD="{{ miniflux_admin_password }}"
+{% endif %}
+{%if miniflux_base_url%}
+BASE_URL={{ miniflux_base_url }}
+{% endif %}
+{%if miniflux_polling_frequency%}
+POLLING_FREQUENCY="{{ miniflux_polling_frequency }}"
+{%endif%}
+{%if miniflux_batch_size%}
+BATCH_SIZE={{ miniflux_batch_size }}
+{%endif%}
+{%if miniflux_database_max_conns%}
+DATABASE_MAX_CONNS={{ miniflux_database_max_conns }}
+{%endif%}
+{%if miniflux_database_min_conns%}
+DATABASE_MIN_CONNS={{ miniflux_database_min_conns }}
+{%endif%}
+{%if miniflux_archive_read_days%}
+ARCHIVE_READ_DAYS={{ miniflux_archive_read_days }}
+{%endif%}
+{%if miniflux_listen_addr%}
+LISTEN_ADDR={{ miniflux_listen_addr }}
+{%endif%}
+{%if miniflux_port%}
+PORT={{ miniflux_port }}
+{%endif%}
+{%if miniflux_cleanup_frequency%}
+CLEANUP_FREQUENCY={{ miniflux_cleanup_frequency }}
+{%endif%}
+{%if miniflux_https%}
+HTTPS={{ miniflux_https }}
+{%endif%}
+{%if miniflux_disable_hsts%}
+DISABLE_HSTS={{ miniflux_disable_hsts }}
+{%endif%}
+{%if miniflux_disable_http_service%}
+DISABLE_HTTP_SERVICE={{ miniflux_disable_http_service }}
+{%endif%}
+{%if miniflux_disable_scheduler_service%}
+DISABLE_SCHEDULER_SERVICE={{ miniflux_disable_scheduler_service }}
+{%endif%}
+{%if miniflux_cert_file%}
+CERT_FILE={{ miniflux_cert_file }}
+{%endif%}
+{%if miniflux_key_file%}
+KEY_FILE={{ miniflux_key_file }}
+{%endif%}
+{%if miniflux_cert_domain%}
+CERT_DOMAIN={{ miniflux_cert_domain }}
+{%endif%}
+{%if miniflux_cert_cache%}
+CERT_CACHE={{ miniflux_cert_cache }}
+{%endif%}
+{%if miniflux_oauth2_provider%}
+OAUTH2_provider={{ miniflux_oauth2_provider }}
+{%endif%}
+{%if miniflux_oauth2_client_id%}
+OAUTH2_client_id={{ miniflux_oauth2_client_id }}
+{%endif%}
+{%if miniflux_oauth2_client_secret%}
+OAUTH2_client_secret={{ miniflux_oauth2_client_secret }}
+{%endif%}
+{%if miniflux_oauth2_redirect_url%}
+OAUTH2_redirect_url={{ miniflux_oauth2_redirect_url }}
+{%endif%}
+{%if miniflux_oauth2_user_creation%}
+OAUTH2_user_creation={{ miniflux_oauth2_user_creation }}
+{%endif%}
+{%if miniflux_pocket_consumer_key%}
+POCKET_CONSUMER_KEY={{ miniflux_pocket_consumer_key }}
+{%endif%}
+{%if miniflux_proxy_images%}
+PROXY_IMAGES={{ miniflux_proxy_images }}
+{%endif%}
