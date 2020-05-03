@@ -15,7 +15,7 @@ ADMIN_PASSWORD="{{ miniflux_admin_password }}"
 BASE_URL={{ miniflux_base_url }}
 {% endif %}
 {%if miniflux_polling_frequency%}
-POLLING_FREQUENCY="{{ miniflux_polling_frequency }}"
+POLLING_FREQUENCY={{ miniflux_polling_frequency }}
 {%endif%}
 {%if miniflux_batch_size%}
 BATCH_SIZE={{ miniflux_batch_size }}
