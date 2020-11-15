@@ -48,12 +48,12 @@
     name: "miniflux"
     state: "stopped"
 
-- name: "Log out users"
-  environment:
-    DATABASE_URL: "{{ miniflux_database_url }}"
-  command: "/usr/local/bin/miniflux -flush-sessions"
-  notify:
-    - "restart miniflux"
+# - name: "Log out users"
+#   environment:
+#     DATABASE_URL: "{{ miniflux_database_url }}"
+#   command: "/usr/local/bin/miniflux -flush-sessions"
+#   notify:
+#     - "restart miniflux"
 
 - name: "Run migrations"
   environment:
