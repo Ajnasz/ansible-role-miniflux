@@ -4,9 +4,8 @@ After=network.target postgresql.service
 
 [Service]
 Type=simple
-EnvironmentFile=/etc/miniflux.conf
 User=miniflux
-ExecStart=/usr/local/bin/miniflux
+ExecStart=/usr/local/bin/miniflux -c /etc/miniflux.conf
 Restart=always
 RuntimeDirectory=miniflux
 
