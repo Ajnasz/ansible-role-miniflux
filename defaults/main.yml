@@ -34,4 +34,4 @@ miniflux_oauth2_user_creation: ""
 miniflux_pocket_consumer_key: ""
 miniflux_proxy_images: "http-only"
 
-miniflux_database_url: "postgres://{{ miniflux_dbuser }}:{{ miniflux_dbpassword }}@localhost/{{ miniflux_dbname }}?sslmode=disable"
+miniflux_database_url: "user={{ miniflux_dbuser }} password={{ miniflux_dbpassword }} host=localhost dbname={{ miniflux_dbname }} sslmode=disable"

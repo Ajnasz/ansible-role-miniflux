@@ -1,7 +1,7 @@
 # See https://docs.miniflux.app/
 
 LISTEN_ADDR=0.0.0.0:8080
-DATABASE_URL="{{ miniflux_database_url }}"
+DATABASE_URL={{ miniflux_database_url }}
 {%if run_migrations %}
 RUN_MIGRATIONS=1
 {% endif %}
