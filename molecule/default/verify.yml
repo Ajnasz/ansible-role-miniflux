@@ -1,0 +1,87 @@
+---
+
+- name: Verify
+  hosts: miniflux_group
+  gather_facts: true
+  vars:
+    bin_path: /usr/bin/miniflux
+    bin_mode: '0755'
+    pkg_test: miniflux
+    config_path: "/etc/miniflux.conf"
+    ports:
+      - { h: localhost, p: 8080 }
+    is_container: false
+  pre_tasks:
+    - name: Debug | var ansible_virtualization_type
+      ansible.builtin.debug:
+        var: ansible_virtualization_type
+    - name: Set fact is_container
+      ansible.builtin.set_fact:
+        is_container: true
+      when: >
+        (ansible_virtualization_type is defined and
+          (ansible_virtualization_type == "docker" or ansible_virtualization_type == "containerd"
+           or ansible_virtualization_type == "container"
+          )
+        )
+    - name: Set fact starbase_mode
+      ansible.builtin.set_fact:
+        starbase_mode: '0755'
+      when: ansible_os_family == "RedHat"
+  tasks:
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+        manager: auto
+    - name: Validate that needed packages are present
+      ansible.builtin.assert:
+        that: ansible_facts.packages[pkg_test]
+
+    - name: Check executable
+      ansible.builtin.stat:
+        path: "{{ bin_path }}"
+      register: bin1
+    - name: Validate starbase executable is present
+      ansible.builtin.assert:
+        that: bin1.stat.exists and bin1.stat.size != 0 and bin1.stat.mode == bin_mode
+
+    - name: Check config file
+      ansible.builtin.stat:
+        path: "{{ config_path }}"
+      register: cfg1
+    - name: Validate configuration file is present
+      ansible.builtin.assert:
+        that: cfg1.stat.exists and cfg1.stat.size != 0
+
+    - name: Ensure app is running
+      ansible.builtin.command: pgrep -u miniflux miniflux
+      register: ps1
+      changed_when: false
+      failed_when: false
+    - name: Validate ps output
+      ansible.builtin.assert:
+        that: ps1.stdout
+      when:
+        - not is_container|bool
+
+    - name: Ensure procps package is present
+      ansible.builtin.package:
+        name: procps
+        state: present
+      when: ansible_os_family == "RedHat"
+    - name: Check all processes
+      ansible.builtin.command: ps aux
+      changed_when: false
+      register: psa
+    - name: Debug | ps aux output
+      ansible.builtin.debug:
+        var: psa
+        verbosity: 1
+
+    - name: Ensure ports are listening
+      ansible.builtin.wait_for:
+        host: "{{ item.h }}"
+        port: "{{ item.p }}"
+        timeout: 10
+      with_items: "{{ ports }}"
+      when:
+        - not is_container|bool
