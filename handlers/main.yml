@@ -3,16 +3,22 @@
 - name: "Reload systemd"
   ansible.builtin.systemd:
     daemon_reload: "yes"
+  when:
+    - not is_container|bool
 
 - name: "Enable miniflux"
   ansible.builtin.systemd:
     name: "miniflux"
     enabled: "yes"
+  when:
+    - not is_container|bool
 
 - name: Stop miniflux
   ansible.builtin.systemd:
     name: "miniflux"
     state: "stopped"
+  when:
+    - not is_container|bool
 
 - name: Run miniflux db migration  # noqa no-changed-when
   environment:
@@ -23,3 +29,5 @@
   ansible.builtin.systemd:
     name: "miniflux"
     state: "restarted"
+  when:
+    - not is_container|bool
