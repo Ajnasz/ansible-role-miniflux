@@ -1,16 +1,25 @@
 ---
 
-- name: "reload systemd"
-  systemd:
+- name: "Reload systemd"
+  ansible.builtin.systemd:
     daemon_reload: "yes"
 
-- name: "enable miniflux"
-  systemd:
+- name: "Enable miniflux"
+  ansible.builtin.systemd:
     name: "miniflux"
     enabled: "yes"
 
-- name: "restart miniflux"
-  systemd:
+- name: Stop miniflux
+  ansible.builtin.systemd:
+    name: "miniflux"
+    state: "stopped"
+
+- name: Run miniflux db migration  # noqa no-changed-when
+  environment:
+    DATABASE_URL: "{{ miniflux_database_url }}"
+  ansible.builtin.command: "/usr/local/bin/miniflux -migrate"
+
+- name: "Restart miniflux"
+  ansible.builtin.systemd:
     name: "miniflux"
     state: "restarted"
-

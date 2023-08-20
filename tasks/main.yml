@@ -1,12 +1,12 @@
 ---
 
 - name: "Add user group"
-  group:
+  ansible.builtin.group:
     name: "{{ miniflux_group }}"
     state: "present"
 
 - name: "Add miniflux user"
-  user:
+  ansible.builtin.user:
     name: "{{ miniflux_user }}"
     group: "{{ miniflux_group }}"
     home: "/var/empty"
@@ -15,17 +15,17 @@
     shell: "/bin/false"
 
 - name: "Include armv7 vars"
-  include_vars:
+  ansible.builtin.include_vars:
     file: "armv7.yml"
   when: ansible_architecture == "armv7l"
 
 - name: "Include amd64 vars"
-  include_vars:
+  ansible.builtin.include_vars:
     file: "amd64.yml"
   when: ansible_architecture != "armv7l"
 
 - name: "Download miniflux binary"
-  get_url:
+  ansible.builtin.get_url:
     force: "yes"
     url: "{{ miniflux_download_url }}"
     dest: "/usr/local/bin/miniflux"
@@ -33,43 +33,38 @@
     owner: "root"
     group: "root"
   notify:
-    - "restart miniflux"
+    - Stop miniflux
+    - Run miniflux db migration
+    - "Restart miniflux"
 
 - name: "Add miniflux systemd file"
-  copy:
+  ansible.builtin.copy:
     src: "miniflux.service"
     dest: "/etc/systemd/system/miniflux.service"
+    mode: '0644'
   notify:
-    - "reload systemd"
-    - "enable miniflux"
-
-- name: "Stop application to run migrations"
-  systemd:
-    name: "miniflux"
-    state: "stopped"
+    - "Reload systemd"
+    - "Enable miniflux"
 
 # - name: "Log out users"
 #   environment:
 #     DATABASE_URL: "{{ miniflux_database_url }}"
-#   command: "/usr/local/bin/miniflux -flush-sessions"
+#   ansible.builtin.command: "/usr/local/bin/miniflux -flush-sessions"
 #   notify:
-#     - "restart miniflux"
+#     - "Restart miniflux"
 
-- name: "Run migrations"
-  environment:
-    DATABASE_URL: "{{ miniflux_database_url }}"
-  command: "/usr/local/bin/miniflux -migrate"
-  notify:
-    - "restart miniflux"
+- name: Flush handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: "Add real config"
   vars:
-    run_migrations: False
-    create_admin: False
-  template:
+    run_migrations: false
+    create_admin: false
+  ansible.builtin.template:
     src: "miniflux.conf.j2"
     dest: "/etc/miniflux.conf"
     owner: root
     group: root
+    mode: '0644'
   notify:
-    - "restart miniflux"
+    - "Restart miniflux"
