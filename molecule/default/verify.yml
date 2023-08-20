@@ -4,7 +4,7 @@
   hosts: miniflux_group
   gather_facts: true
   vars:
-    bin_path: /usr/bin/miniflux
+    bin_path: /usr/local/bin/miniflux
     bin_mode: '0755'
     pkg_test: miniflux
     config_path: "/etc/miniflux.conf"
@@ -24,17 +24,13 @@
            or ansible_virtualization_type == "container"
           )
         )
-    - name: Set fact starbase_mode
-      ansible.builtin.set_fact:
-        starbase_mode: '0755'
-      when: ansible_os_family == "RedHat"
   tasks:
 
     - name: Check executable
       ansible.builtin.stat:
         path: "{{ bin_path }}"
       register: bin1
-    - name: Validate starbase executable is present
+    - name: Validate executable is present
       ansible.builtin.assert:
         that: bin1.stat.exists and bin1.stat.size != 0 and bin1.stat.mode == bin_mode
 
