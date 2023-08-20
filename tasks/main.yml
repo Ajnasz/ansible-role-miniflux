@@ -45,6 +45,7 @@
     group: "root"
   notify:
     - Stop miniflux
+    - Install postgresql extension.
     - Run miniflux db migration
     - "Restart miniflux"
 
