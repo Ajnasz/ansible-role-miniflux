@@ -7,6 +7,22 @@
     https_proxy: "{{ lookup('env', 'https_proxy') }}"
     no_proxy: "{{ lookup('env', 'no_proxy') }}"
   remote_user: root
+  vars:
+    postgresql_users:
+      - name: miniflux
+        password: miniflux
+        role_attr_flags:
+        db: miniflux
+
+    postgresql_databases:
+      - name: miniflux
+        owner: miniflux
+
+    postgres_users_no_log: true
+
+    miniflux_dbname: miniflux
+    miniflux_dbuser: miniflux
+    miniflux_dbpassword: "miniflux"
   pre_tasks:
     - name: Ubuntu | Install python3
       ansible.builtin.raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3-minimal)
