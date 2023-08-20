@@ -1,0 +1,22 @@
+---
+galaxy_info:
+  role_name: miniflux
+  author: ajnasz
+  description: Setup miniflux, minimalist and opinionated feed reader
+  license: BSD
+  min_ansible_version: '1.9'
+  standalone: true
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - jammy
+        - focal
+        - bionic
+  galaxy_tags:
+    - rss
+    - feeds
+    - news
+dependencies: []
