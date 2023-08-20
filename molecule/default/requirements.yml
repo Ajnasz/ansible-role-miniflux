@@ -2,3 +2,6 @@
 
 collections:
   - ansible.posix
+
+roles:
+  - name: geerlingguy.postgresql
