@@ -18,6 +18,11 @@
       - name: miniflux
         owner: miniflux
 
+    postgresql_database_extensions:
+      - db: miniflux
+        extensions:
+          - hstore
+
     postgres_users_no_log: true
 
     miniflux_dbname: miniflux
@@ -49,5 +54,6 @@
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
   roles:
-    - geerlingguy.postgresql
+    # - geerlingguy.postgresql
+    - anxs.postgresql
     - ajnasz.miniflux
