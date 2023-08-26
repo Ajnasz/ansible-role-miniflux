@@ -53,6 +53,10 @@
         update_cache: yes
         cache_valid_time: 3600
       when: ansible_os_family == "Debian"
+    - name: Ensure gnupg2 is present for anxs.postgresql
+      ansible.builtin.package:
+        name: gnupg2
+        state: present
   roles:
     # - geerlingguy.postgresql
     - anxs.postgresql
