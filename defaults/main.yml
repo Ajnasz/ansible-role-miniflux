@@ -1,3 +1,5 @@
+---
+
 miniflux_user: "miniflux"
 miniflux_group: "miniflux"
 miniflux_version: "2.0.45"
@@ -35,3 +37,5 @@ miniflux_pocket_consumer_key: ""
 miniflux_proxy_images: "http-only"
 
 miniflux_database_url: "user={{ miniflux_dbuser }} password={{ miniflux_dbpassword }} host=localhost dbname={{ miniflux_dbname }} sslmode=disable"
+
+is_container: false

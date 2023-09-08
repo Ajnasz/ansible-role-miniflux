@@ -1,16 +1,41 @@
 ---
 
-- name: "reload systemd"
-  systemd:
+- name: "Reload systemd"
+  ansible.builtin.systemd:
     daemon_reload: "yes"
+  when:
+    - not is_container|bool
 
-- name: "enable miniflux"
-  systemd:
+# https://github.com/geerlingguy/ansible-role-postgresql/issues/37
+# https://github.com/geerlingguy/ansible-role-postgresql/pull/52
+- name: Install postgresql extension.  # noqa no-changed-when
+  ansible.builtin.shell: "psql -c \"CREATE EXTENSION IF NOT EXISTS hstore;\""
+  become: yes
+  become_user: postgres
+  failed_when: false
+
+- name: "Enable miniflux"
+  ansible.builtin.systemd:
     name: "miniflux"
     enabled: "yes"
+  when:
+    - not is_container|bool
 
-- name: "restart miniflux"
-  systemd:
+- name: Stop miniflux
+  ansible.builtin.systemd:
+    name: "miniflux"
+    state: "stopped"
+  when:
+    - not is_container|bool
+
+- name: Run miniflux db migration  # noqa no-changed-when
+  environment:
+    DATABASE_URL: "{{ miniflux_database_url }}"
+  ansible.builtin.command: "/usr/local/bin/miniflux -migrate"
+
+- name: "Restart miniflux"
+  ansible.builtin.systemd:
     name: "miniflux"
     state: "restarted"
-
+  when:
+    - not is_container|bool
