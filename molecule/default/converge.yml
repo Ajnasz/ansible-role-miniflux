@@ -11,23 +11,14 @@
     postgresql_version: 13
     postgresql_users:
       - name: miniflux
-        pass: miniflux
+        password: miniflux
+        db: "miniflux"
+        priv: "ALL"
 
     postgresql_databases:
       - name: miniflux
         owner: miniflux
         hstore: yes
-
-    postgresql_database_extensions:
-      - db: miniflux
-        extensions:
-          - hstore
-
-    postgresql_user_privileges:
-      - name: miniflux
-        db: miniflux
-        priv: "ALL"
-        role_attr_flags: "CREATEDB"
 
     miniflux_dbname: miniflux
     miniflux_dbuser: miniflux
@@ -58,11 +49,11 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Ensure gnupg2 is present for anxs.postgresql
-      ansible.builtin.package:
-        name: gnupg
-        state: present
+    # - name: Ensure gnupg2 is present for anxs.postgresql
+    #   ansible.builtin.package:
+    #     name: gnupg
+    #     state: present
   roles:
-    # - geerlingguy.postgresql
-    - anxs.postgresql
+    - geerlingguy.postgresql
+    # - anxs.postgresql
     - ajnasz.miniflux
