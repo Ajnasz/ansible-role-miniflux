@@ -11,11 +11,12 @@ See defaults/main.yml
 ```yml
 miniflux_user: "miniflux"
 miniflux_group: "miniflux"
-miniflux_version: "2.0.18"
+miniflux_version: "2.0.49"
 
 miniflux_dbname: miniflux
 miniflux_dbuser: miniflux
 miniflux_dbpassword: ""
+miniflux_dbhost: "localhost"
 miniflux_admin_username: "admin"
 miniflux_admin_password: ""
 miniflux_base_url: ""
@@ -45,5 +46,5 @@ miniflux_oauth2_user_creation: ""
 miniflux_pocket_consumer_key: ""
 miniflux_proxy_images: "http-only"
 
-miniflux_database_url: "postgres://{{ miniflux_dbuser }}:{{ miniflux_dbpassword }}@localhost/{{ miniflux_dbname }}?sslmode=disable"
+miniflux_database_url: "user={{ miniflux_dbuser }} password={{ miniflux_dbpassword }} host={{miniflux_dbhost}} dbname={{ miniflux_dbname }} sslmode=disable"
 ```
