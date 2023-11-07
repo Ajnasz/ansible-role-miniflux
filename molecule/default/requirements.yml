@@ -5,4 +5,4 @@ collections:
 
 roles:
   # - name: geerlingguy.postgresql
-  - name: ANXS.postgresql
+  - name: anxs.postgresql

@@ -58,11 +58,11 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    - name: Ensure gnupg2 is present for ANXS.postgresql
+    - name: Ensure gnupg2 is present for anxs.postgresql
       ansible.builtin.package:
         name: gnupg
         state: present
   roles:
     # - geerlingguy.postgresql
-    - ANXS.postgresql
+    - anxs.postgresql
     - ajnasz.miniflux
