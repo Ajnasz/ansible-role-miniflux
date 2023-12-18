@@ -13,7 +13,6 @@
       - name: miniflux
         password: miniflux
         db: "miniflux"
-        priv: "ALL"
 
     postgresql_databases:
       - name: miniflux
@@ -49,11 +48,6 @@
         update_cache: yes
       when: ansible_os_family == "Debian"
 
-    # - name: Ensure gnupg2 is present for anxs.postgresql
-    #   ansible.builtin.package:
-    #     name: gnupg
-    #     state: present
   roles:
     - geerlingguy.postgresql
-    # - anxs.postgresql
     - ajnasz.miniflux
