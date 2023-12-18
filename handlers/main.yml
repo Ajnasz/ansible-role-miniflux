@@ -9,7 +9,7 @@
 # https://github.com/geerlingguy/ansible-role-postgresql/issues/37
 # https://github.com/geerlingguy/ansible-role-postgresql/pull/52
 - name: Install postgresql extension.  # noqa no-changed-when
-  ansible.builtin.shell: "psql -c \"CREATE EXTENSION IF NOT EXISTS hstore;\" miniflux"
+  ansible.builtin.shell: "psql -c \"CREATE EXTENSION IF NOT EXISTS hstore;\" {{ miniflux_dbname }}"
   become: yes
   become_user: postgres
   failed_when: false
