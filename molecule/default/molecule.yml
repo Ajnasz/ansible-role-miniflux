@@ -7,10 +7,7 @@ driver:
 platforms:
   - name: instance
     image: ${MOLECULE_DISTRO:-ubuntu:20.04}
-    # env:
-    #   http_proxy: ${http_proxy}
-    #   https_proxy: ${https_proxy}
-    #   no_proxy: ${no_proxy}
+    command: ${MOLECULE_DOCKER_COMMAND:-"/lib/systemd/systemd"}
     groups:
       - miniflux_group
 provisioner:
