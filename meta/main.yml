@@ -5,7 +5,6 @@ galaxy_info:
   description: Setup miniflux, minimalist and opinionated feed reader
   license: MIT
   min_ansible_version: '1.9'
-  standalone: true
   platforms:
     - name: EL
       versions:
