@@ -8,8 +8,6 @@ platforms:
   - name: instance
     image: ${MOLECULE_DISTRO:-ubuntu:20.04}
     command: ${MOLECULE_DOCKER_COMMAND:-""}
-    tmpfs:
-      - /tmp
     groups:
       - miniflux_group
 provisioner:
