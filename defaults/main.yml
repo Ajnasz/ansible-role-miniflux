@@ -2,7 +2,7 @@
 
 miniflux_user: "miniflux"
 miniflux_group: "miniflux"
-miniflux_version: "2.1.3"
+miniflux_version: "2.1.4"
 
 miniflux_dbname: miniflux
 miniflux_dbuser: miniflux
