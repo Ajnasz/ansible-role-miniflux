@@ -63,19 +63,22 @@ CERT_DOMAIN={{ miniflux_cert_domain }}
 CERT_CACHE={{ miniflux_cert_cache }}
 {%endif%}
 {%if miniflux_oauth2_provider%}
-OAUTH2_provider={{ miniflux_oauth2_provider }}
+OAUTH2_PROVIDER={{ miniflux_oauth2_provider }}
 {%endif%}
 {%if miniflux_oauth2_client_id%}
-OAUTH2_client_id={{ miniflux_oauth2_client_id }}
+OAUTH2_CLIENT_ID={{ miniflux_oauth2_client_id }}
 {%endif%}
 {%if miniflux_oauth2_client_secret%}
-OAUTH2_client_secret={{ miniflux_oauth2_client_secret }}
+OAUTH2_CLIENT_SECRET={{ miniflux_oauth2_client_secret }}
 {%endif%}
 {%if miniflux_oauth2_redirect_url%}
-OAUTH2_redirect_url={{ miniflux_oauth2_redirect_url }}
+OAUTH2_REDIRECT_URL={{ miniflux_oauth2_redirect_url }}
 {%endif%}
 {%if miniflux_oauth2_user_creation%}
-OAUTH2_user_creation={{ miniflux_oauth2_user_creation }}
+OAUTH2_USER_CREATION={{ miniflux_oauth2_user_creation }}
+{%endif%}
+{%if miniflux_oauth2_oidc_discovery_endpoint %}
+OAUTH2_OIDC_DISCOVERY_ENDPOINT={{ miniflux_oauth2_oidc_discovery_endpoint }}
 {%endif%}
 {%if miniflux_pocket_consumer_key%}
 POCKET_CONSUMER_KEY={{ miniflux_pocket_consumer_key }}
