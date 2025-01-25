@@ -1,7 +1,10 @@
 ---
 
 collections:
-  - ansible.posix
+  - name: ansible.posix
+  - name: community.docker
+    # https://github.com/ansible-collections/community.docker/issues/868
+    version: ">=4.1.0"
 
 roles:
   - name: geerlingguy.postgresql
