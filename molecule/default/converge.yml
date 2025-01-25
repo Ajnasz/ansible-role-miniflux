@@ -22,6 +22,8 @@
     miniflux_dbname: miniflux
     miniflux_dbuser: miniflux
     miniflux_dbpassword: "miniflux"
+    miniflux_conf_extra_options:
+      - METRICS_COLLECTOR=1
   pre_tasks:
     - name: Ubuntu | Install python3
       ansible.builtin.raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3-minimal)
