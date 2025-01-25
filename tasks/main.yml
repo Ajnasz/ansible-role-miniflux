@@ -80,3 +80,6 @@
     mode: '0644'
   notify:
     - "Restart miniflux"
+
+- name: Import backup-restore
+  ansible.builtin.import_tasks: backup-restore.yml
