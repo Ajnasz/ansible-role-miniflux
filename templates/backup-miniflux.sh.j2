@@ -13,14 +13,10 @@ dest={{ backupdir }}
 [ ! -d "$dest" ] && install -d -m 0700 -o root "$dest"
 destfile=$dest/backup-miniflux-$date.tar.gz
 
-{% if miniflux_dbname is defined and miniflux_dbname != '' %}
 sudo -u postgres pg_dump -c "{{ miniflux_dbname }}" > $dest/pg_dump-miniflux.sql
-{% endif %}
 
 tar czf $destfile $dest/pg_dump-miniflux.sql
-{% if miniflux_dbname is defined and miniflux_dbname != '' %}
 rm $dest/pg_dump-miniflux.sql
-{% endif %}
 
 tar tzf $destfile > /dev/null
 openssl dgst -sha512 $destfile > $destfile.distinfo
