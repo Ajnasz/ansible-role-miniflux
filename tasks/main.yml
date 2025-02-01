@@ -83,3 +83,5 @@
 
 - name: Import backup-restore
   ansible.builtin.import_tasks: backup-restore.yml
+  when:
+    - miniflux_backup_enable | bool

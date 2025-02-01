@@ -42,6 +42,7 @@ miniflux_conf_extra_options: []
 
 miniflux_database_url: "user={{ miniflux_dbuser }} password={{ miniflux_dbpassword }} host={{ miniflux_dbhost }} dbname={{ miniflux_dbname }} sslmode=disable"
 
+miniflux_backup_enable: false
 backupdir: /var/_backup
 scriptsdir: /usr/local/scripts
 is_container: false
