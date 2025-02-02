@@ -1,0 +1,22 @@
+#!/bin/sh
+{{ ansible_managed | comment }}
+
+# backup script for miniflux
+# https://miniflux.app/faq.html#backup
+# https://www.postgresql.org/docs/current/backup.html
+
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+umask 077
+
+date=`date +%Y%m%d`
+dest={{ backupdir }}
+[ ! -d "$dest" ] && install -d -m 0700 -o root "$dest"
+destfile=$dest/backup-miniflux-$date.tar.gz
+
+sudo -u postgres pg_dump -c "{{ miniflux_dbname }}" > $dest/pg_dump-miniflux.sql
+
+tar czf $destfile $dest/pg_dump-miniflux.sql
+rm $dest/pg_dump-miniflux.sql
+
+tar tzf $destfile > /dev/null
+openssl dgst -sha512 $destfile > $destfile.distinfo
