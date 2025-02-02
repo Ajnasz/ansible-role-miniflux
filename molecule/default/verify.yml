@@ -81,10 +81,16 @@
         url: http://localhost:8080/metrics
         return_content: true
       register: metrics
+      when:
+        - not is_container|bool
+
     - name: Debug | var metrics
       ansible.builtin.debug:
         var: metrics
         verbosity: 1
+      when:
+        - not is_container|bool
+
     - name: Validate metrics api output
       ansible.builtin.assert:
         that:
