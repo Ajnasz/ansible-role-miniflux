@@ -86,3 +86,6 @@ POCKET_CONSUMER_KEY={{ miniflux_pocket_consumer_key }}
 {%if miniflux_proxy_images%}
 MEDIA_PROXY_MODE={{ miniflux_proxy_images }}
 {%endif%}
+{% for item in miniflux_conf_extra_options %}
+{{ item }}
+{% endfor %}

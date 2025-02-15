@@ -37,7 +37,12 @@ miniflux_oauth2_user_creation: ""
 miniflux_oauth2_oidc_discovery_endpoint: ""
 miniflux_pocket_consumer_key: ""
 miniflux_proxy_images: "http-only"
+# other options?
+miniflux_conf_extra_options: []
 
 miniflux_database_url: "user={{ miniflux_dbuser }} password={{ miniflux_dbpassword }} host={{ miniflux_dbhost }} dbname={{ miniflux_dbname }} sslmode=disable"
 
+miniflux_backup_enable: false
+backupdir: /var/_backup
+scriptsdir: /usr/local/scripts
 is_container: false

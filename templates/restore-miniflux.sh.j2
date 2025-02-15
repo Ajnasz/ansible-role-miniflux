@@ -1,0 +1,24 @@
+#!/bin/sh
+{{ ansible_managed | comment }}
+
+# restore script for miniflux
+
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+umask 077
+
+if [ $# -gt 1 -a -r "$1" ]; then
+    backupfile=$1
+else
+    backupfile={{ backupdir }}/backup-miniflux.tar.gz
+fi
+
+tmpdir=`mktemp -d /tmp/restore.XXXXXX || exit 1`
+
+tar xzf $backupfile -C $tmpdir
+
+systemctl stop miniflux
+
+sudo -u postgres psql --set ON_ERROR_STOP=on -f $tmpdir{{ backupdir }}/pg_dump-miniflux.sql "{{ miniflux_dbname }}"
+sudo -u postgres vacuumdb --dbname="{{ miniflux_dbname }}" --analyze --verbose
+
+systemctl start miniflux

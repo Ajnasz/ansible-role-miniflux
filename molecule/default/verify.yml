@@ -75,3 +75,27 @@
       with_items: "{{ ports }}"
       when:
         - not is_container|bool
+
+    - name: Check metrics
+      ansible.builtin.uri:
+        url: http://localhost:8080/metrics
+        return_content: true
+      register: metrics
+      when:
+        - not is_container|bool
+
+    - name: Debug | var metrics
+      ansible.builtin.debug:
+        var: metrics
+        verbosity: 1
+      when:
+        - not is_container|bool
+
+    - name: Validate metrics api output
+      ansible.builtin.assert:
+        that:
+          - "'404 page not found' not in metrics.stdout"
+          - "'go_gc_duration_seconds' in metrics.stdout"
+          - "'promhttp_metric_handler_requests_total' in metrics.stdout"
+      when:
+        - not is_container|bool

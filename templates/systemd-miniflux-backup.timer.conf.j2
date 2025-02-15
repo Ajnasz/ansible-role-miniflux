@@ -1,0 +1,15 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Miniflux backup timer
+
+[Timer]
+Persistent=true
+OnCalendar=weekly
+# OnCalendar=daily
+
+; Add jitter
+RandomizedDelaySec=5m
+
+[Install]
+WantedBy=timers.target

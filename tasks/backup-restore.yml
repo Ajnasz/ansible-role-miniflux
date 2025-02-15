@@ -1,0 +1,42 @@
+---
+
+- name: Ensure scripts directory exists
+  ansible.builtin.file:
+    path: "{{ scriptsdir }}"
+    state: "directory"
+    mode: "0755"
+
+- name: Add backup script
+  ansible.builtin.template:
+    src: "backup-miniflux.sh.j2"
+    dest: "{{ scriptsdir }}/backup-miniflux.sh"
+    mode: "0755"
+- name: Add restore script
+  ansible.builtin.template:
+    src: "restore-miniflux.sh.j2"
+    dest: "{{ scriptsdir }}/restore-miniflux.sh"
+    mode: "0755"
+
+- name: Ensure service miniflux-backup.service exists
+  ansible.builtin.template:
+    src: systemd-miniflux-backup.service.conf.j2
+    dest: /etc/systemd/system/miniflux-backup.service
+    mode: '0644'
+  notify:
+    - Reload systemd
+
+- name: Ensure service miniflux-backup.timer exists
+  ansible.builtin.template:
+    src: systemd-miniflux-backup.timer.conf.j2
+    dest: /etc/systemd/system/miniflux-backup.timer
+    mode: '0644'
+  notify:
+    - Reload systemd
+
+- name: Ensure service miniflux-backup is enabled
+  ansible.builtin.service:
+    name: miniflux-backup.timer
+    enabled: yes
+    state: started
+  when:
+    - not is_container|bool
