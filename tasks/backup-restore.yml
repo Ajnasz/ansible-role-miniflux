@@ -6,6 +6,12 @@
     state: "directory"
     mode: "0755"
 
+- name: Ensure backup target directory exists
+  ansible.builtin.file:
+    path: "{{ backupdir }}"
+    state: "directory"
+    mode: "0755"
+
 - name: Add backup script
   ansible.builtin.template:
     src: "backup-miniflux.sh.j2"
