@@ -26,7 +26,7 @@ jobs:
         with:
           path: ${{ env.ANSIBLE_ROLE }}
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - name: Install dependencies
@@ -61,7 +61,7 @@ jobs:
         if: ${{ always() }}
       - name: Run Checkov action
         id: checkov
-        uses: bridgecrewio/checkov-action@bcc1738f8442c405465c017f4c9612582e66c82d
+        uses: bridgecrewio/checkov-action@c903af70b3b45a75049af3b64f5e15db11ea76de
         with:
           directory: ${{ env.ANSIBLE_ROLE }}
           soft_fail: true
