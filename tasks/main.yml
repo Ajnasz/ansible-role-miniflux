@@ -43,6 +43,7 @@
     mode: "0755"
     owner: "root"
     group: "root"
+  environment: "{{ proxy_env | default(omit) }}"
   notify:
     - Stop miniflux
     - Install postgresql extension.
@@ -76,8 +77,8 @@
     src: "miniflux.conf.j2"
     dest: "/etc/miniflux.conf"
     owner: root
-    group: root
-    mode: '0644'
+    group: "{{ miniflux_group }}"
+    mode: '0640'
   notify:
     - "Restart miniflux"
 
