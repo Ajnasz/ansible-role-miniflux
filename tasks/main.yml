@@ -4,10 +4,10 @@
   ansible.builtin.set_fact:
     is_container: true
   when: >
-    (ansible_virtualization_type is defined and
-      (ansible_virtualization_type == "docker"
-       or ansible_virtualization_type == "containerd"
-       or ansible_virtualization_type == "container"
+    (ansible_facts['virtualization_type'] is defined and
+      (ansible_facts['virtualization_type'] == "docker"
+       or ansible_facts['virtualization_type'] == "containerd"
+       or ansible_facts['virtualization_type'] == "container"
       )
     )
 
@@ -28,12 +28,12 @@
 - name: "Include armv7 vars"
   ansible.builtin.include_vars:
     file: "armv7.yml"
-  when: ansible_architecture == "armv7l"
+  when: ansible_facts['architecture'] == "armv7l"
 
 - name: "Include amd64 vars"
   ansible.builtin.include_vars:
     file: "amd64.yml"
-  when: ansible_architecture != "armv7l"
+  when: ansible_facts['architecture'] != "armv7l"
 
 - name: "Download miniflux binary"
   ansible.builtin.get_url:
