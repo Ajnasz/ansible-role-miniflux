@@ -45,9 +45,9 @@
     group: "root"
   environment: "{{ proxy_env | default(omit) }}"
   notify:
-    - Stop miniflux
-    - Install postgresql extension.
-    - Run miniflux db migration
+    - "Stop miniflux"
+    - "Install postgresql extension."
+    - "Run miniflux db migration"
     - "Restart miniflux"
 
 - name: "Add miniflux systemd file"
