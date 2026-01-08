@@ -66,6 +66,16 @@
 #   notify:
 #     - "Restart miniflux"
 
+- name: Grant superuser to miniflux user for migration
+  community.postgresql.postgresql_query:
+    login_unix_socket: /var/run/postgresql
+    login_user: postgres
+    db: postgres
+    query: "ALTER USER {{ miniflux_dbuser }} WITH SUPERUSER"
+  become: yes
+  become_user: postgres
+  when: miniflux_dbhost | default('localhost') == 'localhost'
+
 - name: Grant ownership of hstore extension to miniflux user
   community.postgresql.postgresql_query:
     login_unix_socket: "{{ miniflux_db_unix_socket | default(omit) }}"
@@ -78,6 +88,16 @@
 
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
+
+- name: Revoke superuser from miniflux user after migration
+  community.postgresql.postgresql_query:
+    login_unix_socket: /var/run/postgresql
+    login_user: postgres
+    db: postgres
+    query: "ALTER USER {{ miniflux_dbuser }} WITH NOSUPERUSER"
+  become: yes
+  become_user: postgres
+  when: miniflux_dbhost | default('localhost') == 'localhost'
 
 - name: "Add real config"
   vars:
