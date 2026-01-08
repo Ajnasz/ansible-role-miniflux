@@ -8,6 +8,7 @@ miniflux_dbname: miniflux
 miniflux_dbuser: miniflux
 miniflux_dbpassword: ""
 miniflux_dbhost: "localhost"
+miniflux_db_unix_socket: "/var/run/postgresql"
 miniflux_admin_username: "admin"
 miniflux_admin_password: ""
 miniflux_base_url: ""

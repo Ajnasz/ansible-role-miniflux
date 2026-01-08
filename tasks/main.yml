@@ -66,6 +66,16 @@
 #   notify:
 #     - "Restart miniflux"
 
+- name: Grant ownership of hstore extension to miniflux user
+  community.postgresql.postgresql_query:
+    login_unix_socket: "{{ miniflux_db_unix_socket | default(omit) }}"
+    login_user: postgres
+    login_db: "{{ miniflux_dbname | default('miniflux') }}"
+    query: "ALTER SCHEMA public OWNER TO {{ miniflux_dbuser }}"
+  become: yes
+  become_user: postgres
+  when: miniflux_dbhost | default('localhost') == 'localhost'
+
 - name: Flush handlers
   ansible.builtin.meta: flush_handlers
 
