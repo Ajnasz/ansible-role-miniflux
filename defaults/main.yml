@@ -38,6 +38,18 @@ miniflux_oauth2_user_creation: ""
 miniflux_oauth2_oidc_discovery_endpoint: ""
 miniflux_pocket_consumer_key: ""
 miniflux_proxy_images: "http-only"
+miniflux_passkey: false
+
+miniflux_oauth2_provider: ""
+miniflux_oauth2_client_id: ""
+miniflux_oauth2_client_secret: ""
+miniflux_oauth2_redirect_url: ""
+miniflux_oauth2_oidc_provider_name: ""
+miniflux_oauth2_oidc_discovery_endpoint: ""
+miniflux_oauth2_user_creation: false
+
+miniflux_disable_local_auth: false
+
 # other options?
 miniflux_conf_extra_options: []
 
